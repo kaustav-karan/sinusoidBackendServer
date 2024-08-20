@@ -94,6 +94,7 @@ app.get("/event/:eventId", async (req, res) => {
 });
 
 app.get('/merch/:amount', (req, res) => {
+  const { amount } = req.params;
   res.redirect(`upi://pay?pa=kaustavkaran2015@okicici&am=${amount}&cu=INR`);
 });
 
