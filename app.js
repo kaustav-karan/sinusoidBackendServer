@@ -95,7 +95,7 @@ app.get("/event/:eventId", async (req, res) => {
 
 app.get('/merch/:amount', (req, res) => {
   const { amount } = req.params;
-  const uri = `tez://upi/pay?pa=kaustavkaran2015@okicici&am=${amount}&cu=INR`;
+  const uri = `tez://upi/pay?pa=namanmani457@okhdfcbank&am=${amount}&cu=INR`;
   console.log(uri);
   res.redirect(uri);
 });
