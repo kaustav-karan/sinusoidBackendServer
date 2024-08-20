@@ -93,10 +93,8 @@ app.get("/event/:eventId", async (req, res) => {
   }
 });
 
-app.get('/merch', (req, res) => {
-  res.redirect(
-    "upi://pay?cu=INR&pa=kaustavkaran2015@okicici&pn=siNUsoid&am=10"
-  );
+app.get('/merch/:amount', (req, res) => {
+  res.redirect(`upi://pay?pa=kaustavkaran2015@okicici&am=${amount}&cu=INR`);
 });
 
 app.post("/event", async (req, res) => {
