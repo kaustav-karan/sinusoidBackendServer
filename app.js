@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const { connectDb } = require("./config/connectDb");
 const eventModal = require("./modal/eventSchema");
 const volunteerFormModal = require("./modal/pages/volunteerForm");
+const sponsorContactModal = require("./modal/pages/sponsorContact");
 require("dotenv").config();
 const cors = require("cors");
 const { google } = require("googleapis");
@@ -93,11 +94,21 @@ app.get("/event/:eventId", async (req, res) => {
   }
 });
 
-app.get('/merch/:amount', (req, res) => {
-  const { amount } = req.params;
-  const uri = `tez://upi/pay?pa=namanmani457@okhdfcbank&am=${amount}&cu=INR`;
-  console.log(uri);
-  res.redirect(uri);
+app.post("/sponsorContact", async (req, res) => {
+  try {
+    const { name, email, phone, companyName } = req.body;
+    const newContact = new sponsorContactModal({
+      name,
+      email,
+      phone,
+      companyName,
+    });
+    await newContact.save();
+    res.status(201).json(newContact);
+  } catch (error) {
+    res.status(400).json({ error });
+    console.log({ error });
+  }
 });
 
 app.post("/event", async (req, res) => {
