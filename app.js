@@ -154,7 +154,7 @@ app.post("/event", async (req, res) => {
 });
 
 app.get("/sinulogo", (req, res) => {
-  res.sendFile(__dirname + "/public/sinulogo.png");
+  res.sendFile(__dirname + "/public/sinuLogo.png");
 });
 
 app.put("/event/:eventId", async (req, res) => {
