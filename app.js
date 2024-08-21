@@ -104,7 +104,7 @@ app.post("/sponsorContact", async (req, res) => {
       companyName,
     });
     await newContact.save();
-    res.status(201).json(newContact);
+    res.status(201).json({ code: "200", message: "Data saved successfully!" });
   } catch (error) {
     res.status(400).json({ error });
     console.log({ error });
