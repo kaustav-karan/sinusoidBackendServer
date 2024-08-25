@@ -87,7 +87,7 @@ app.get("/event/:eventId", async (req, res) => {
     });
     event === null
       ? res.status(404).json({ code: "404", message: "Event not found" })
-      : res.json(...event, (code = "200"));
+      : res.json(event);
   } catch (error) {
     res.status(400).json({ error });
     console.log({ error });
