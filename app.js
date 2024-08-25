@@ -79,20 +79,7 @@ app.post("/volunteerapply", async (req, res) => {
   }
 });
 
-app.get("/event/:eventId", async (req, res) => {
-  try {
-    const { eventId } = req.params;
-    const event = await eventModal.findOne({
-      eventId,
-    });
-    event === null
-      ? res.status(404).json({ code: "404", message: "Event not found" })
-      : res.json(event);
-  } catch (error) {
-    res.status(400).json({ error });
-    console.log({ error });
-  }
-});
+
 
 app.post("/sponsorContact", async (req, res) => {
   try {
@@ -111,7 +98,36 @@ app.post("/sponsorContact", async (req, res) => {
   }
 });
 
-app.post("/event", async (req, res) => {
+app.get("/sinulogo", (req, res) => {
+  res.sendFile(__dirname + "/public/sinuLogo.png");
+});
+
+app.get("/events", async (req, res) => {
+  try {
+    const events = await eventModal.find();
+    res.json(events);
+  } catch (error) {
+    res.status(400).json({ error });
+    console.log({ error });
+  }
+});
+
+app.get("/events/:eventId", async (req, res) => {
+  try {
+    const { eventId } = req.params;
+    const event = await eventModal.findOne({
+      eventId,
+    });
+    event === null
+      ? res.status(404).json({ code: "404", message: "Event not found" })
+      : res.json(event);
+  } catch (error) {
+    res.status(400).json({ error });
+    console.log({ error });
+  }
+});
+
+app.post("/events", async (req, res) => {
   try {
     const {
       _id,
@@ -153,11 +169,7 @@ app.post("/event", async (req, res) => {
   }
 });
 
-app.get("/sinulogo", (req, res) => {
-  res.sendFile(__dirname + "/public/sinuLogo.png");
-});
-
-app.put("/event/:eventId", async (req, res) => {
+app.put("/events/:eventId", async (req, res) => {
   try {
     const { eventId } = req.params;
     const {
