@@ -5,7 +5,7 @@ const eventSchema = mongoose.Schema({
   _id: { type: String, default: uuid() },
   published: { type: Boolean, default: false },
   status: { type: String, default: "draft" },
-  eventId: { type: String, required: true, unique: true },
+  eventId: { type: String },
   eventName: { type: String, required: true },
   eventTagline: { type: String, required: true },
   shortDesc: { type: String, required: true },

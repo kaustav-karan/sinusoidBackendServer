@@ -112,6 +112,50 @@ app.get("/events", async (req, res) => {
   }
 });
 
+app.put("/events/:eventId", async (req, res) => {
+  try {
+    const { eventId } = req.params;
+    const {
+      _id,
+      published,
+      status,
+      eventName,
+      eventTagline,
+      shortDesc,
+      longDesc,
+      schedule,
+      note,
+      overview,
+      rules,
+      prizes,
+      eventStructure,
+    } = req.body;
+    const updatedEvent = await eventModal.findOneAndUpdate(
+      { eventId },
+      {
+        _id,
+        published,
+        status,
+        eventName,
+        eventTagline,
+        shortDesc,
+        longDesc,
+        schedule,
+        note,
+        overview,
+        rules,
+        prizes,
+        eventStructure,
+      },
+      { new: true }
+    );
+    res.json(updatedEvent);
+  } catch (error) {
+    res.status(400).json({ error });
+    console.log({ error });
+  }
+});
+
 app.get("/events/:eventId", async (req, res) => {
   try {
     const { eventId } = req.params;
