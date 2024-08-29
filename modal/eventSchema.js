@@ -20,9 +20,12 @@ const eventSchema = mongoose.Schema({
   },
   note: { type: String, required: false },
   overview: { type: String, required: false, default: "No overview available" },
-  eventStructure: [String], // Modified line
-  rules: [String],
-  prizes: [String],
+  eventStructure: [String
+  ],
+  rules: [String
+  ],
+  prizes: [String
+  ],
 });
 
 const eventModal = mongoose.model("events", eventSchema);
