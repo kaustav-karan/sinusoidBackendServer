@@ -8,21 +8,27 @@ require("dotenv").config();
 const cors = require("cors");
 const { google } = require("googleapis");
 
+// Initialize express
 const app = express();
 
+// CORS options
 const corsOptions = {
   origin: [
     "http://localhost:3000",
     "https://korpsin.in",
     "https://sinusoid.in",
+    "https://cms.sinusoid.in",
   ],
   optionsSuccessStatus: 200,
 };
 
+// Enable CORS
 app.use(cors(corsOptions));
 
+// Bodyparser Middleware
 app.use(bodyParser.json());
 
+// Connect to MongoDB
 connectDb({
   mongoUri: process.env.MONGODB_URI,
 });
@@ -35,10 +41,14 @@ const auth = new google.auth.GoogleAuth({
 });
 const spreadsheetId = process.env.SPREADSHEET_ID;
 
+// siNUsoid Backend Server Routes
+
+// GET Server status
 app.get("/", (req, res) => {
   res.send("Server is up and running...");
 });
 
+// POST Volunteer form
 app.post("/volunteerapply", async (req, res) => {
   try {
     const formData = req.body;
@@ -79,8 +89,7 @@ app.post("/volunteerapply", async (req, res) => {
   }
 });
 
-
-
+// POST Sponsor contact form
 app.post("/sponsorContact", async (req, res) => {
   try {
     const { name, email, phone, companyName } = req.body;
@@ -98,10 +107,12 @@ app.post("/sponsorContact", async (req, res) => {
   }
 });
 
+// GET siNUsoid Logo
 app.get("/sinulogo", (req, res) => {
   res.sendFile(__dirname + "/public/sinuLogo.png");
 });
 
+// GET siNUsoid all Events
 app.get("/events", async (req, res) => {
   try {
     const events = await eventModal.find();
@@ -112,6 +123,7 @@ app.get("/events", async (req, res) => {
   }
 });
 
+// PUT siNUsoid Modify Event by eventId
 app.put("/events/:eventId", async (req, res) => {
   try {
     const { eventId } = req.params;
@@ -156,6 +168,7 @@ app.put("/events/:eventId", async (req, res) => {
   }
 });
 
+// GET siNUsoid Event by eventId
 app.get("/events/:eventId", async (req, res) => {
   try {
     const { eventId } = req.params;
@@ -171,6 +184,7 @@ app.get("/events/:eventId", async (req, res) => {
   }
 });
 
+// POST siNUsoid Add Event
 app.post("/events", async (req, res) => {
   try {
     const {
@@ -213,51 +227,23 @@ app.post("/events", async (req, res) => {
   }
 });
 
+// DELETE siNUsoid Delete Event
+app.delete("/events/:eventId", async (req, res) => {
+  try {
+    const { eventId } = req.params;
+    await eventModal.findOne
+      .findOneAndDelete({
+        eventId,
+      })
+      .exec();
+    res.json({ code: "200", message: "Event deleted successfully!" });
+  } catch (error) {
+    res.status(400).json({ error });
+    console.log({ error });
+  }
+});
+
+// Run server
 app.listen(process.env.PORT || 5000, () => {
   console.log("Server started on port 5000");
 });
-
-
-// app.put("/events/:eventId", async (req, res) => {
-//   try {
-  //     const { eventId } = req.params;
-//     const {
-//       _id,
-//       published,
-//       status,
-//       eventName,
-//       eventTagline,
-//       shortDesc,
-//       longDesc,
-//       schedule,
-//       note,
-//       overview,
-//       rules,
-//       prizes,
-//       eventStructure,
-//     } = req.body;
-//     const updatedEvent = await eventModal.findOneAndUpdate(
-//       { eventId },
-//       {
-//         _id,
-//         published,
-//         status,
-//         eventName,
-//         eventTagline,
-//         shortDesc,
-//         longDesc,
-//         schedule,
-//         note,
-//         overview,
-//         rules,
-//         prizes,
-//         eventStructure,
-//       },
-//       { new: true }
-//     );
-//     res.json(updatedEvent);
-//   } catch (error) {
-//     res.status(400).json({ error });
-//     console.log({ error });
-//   }
-// });
