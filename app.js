@@ -1,7 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const { connectDb } = require("./config/connectDb");
-const eventModal = require("./modal/eventSchema");
+const eventModal = require("./modal/pages/eventSchema");
+const workshopModal = require("./modal/pages/workshopSchema");
 const volunteerFormModal = require("./modal/pages/volunteerForm");
 const sponsorContactModal = require("./modal/pages/sponsorContact");
 require("dotenv").config();
@@ -237,6 +238,121 @@ app.delete("/events/:eventId", async (req, res) => {
       })
       .exec();
     res.json({ code: "200", message: "Event deleted successfully!" });
+  } catch (error) {
+    res.status(400).json({ error });
+    console.log({ error });
+  }
+});
+
+// GET siNUsoid all Workshops
+app.get("/workshops", async (req, res) => {
+  try {
+    const workshops = await workshopModal.find();
+    res.json(workshops);
+  } catch (error) {
+    res.status(400).json({ error });
+    console.log({ error });
+  }
+});
+
+// PUT siNUsoid Modify Workshop by workshopId
+app.put("/workshops/:workshopId", async (req, res) => {
+  try {
+    const { workshopId } = req.params;
+    const {
+      _id,
+      published,
+      status,
+      workshopName,
+      workshopTagline,
+      description,
+      schedule,
+      collaboration,
+      guidelines,
+    } = req.body;
+    const updatedWorkshop = await workshopModal.findOneAndUpdate(
+      { workshopId },
+      {
+        _id,
+        published,
+        status,
+        workshopName,
+        workshopTagline,
+        description,
+        schedule,
+        collaboration,
+        guidelines,
+      },
+      { new: true }
+    );
+    res.json(updatedWorkshop);
+  } catch (error) {
+    res.status(400).json({ error });
+    console.log({ error });
+  }
+});
+
+// GET siNUsoid Workshop by workshopId
+app.get("/workshops/:workshopId", async (req, res) => {
+  try {
+    const { workshopId } = req.params;
+    const workshop = await workshopModal.findOne({
+      workshopId,
+    });
+    workshop === null
+      ? res.status(404).json({ code: "404", message: "Workshop not found" })
+      : res.json(workshop);
+  } catch (error) {
+    res.status(400).json({ error });
+    console.log({ error });
+  }
+});
+
+// POST siNUsoid Add Workshop
+app.post("/workshops", async (req, res) => {
+  try {
+    const {
+      _id,
+      published,
+      status,
+      workshopId,
+      workshopName,
+      workshopTagline,
+      description,
+      schedule,
+      collaboration,
+      guidelines
+    } = req.body;
+    const newWorkshop = new workshopModal({
+      _id,
+      published,
+      status,
+      workshopId,
+      workshopName,
+      workshopTagline,
+      description,
+      schedule,
+      collaboration,
+      guidelines
+    });
+    await newWorkshop.save();
+    res.status(201).json(newWorkshop);
+  } catch (error) {
+    res.status(400).json({ error });
+    console.log({ error });
+  }
+});
+
+// DELETE siNUsoid Delete Workshop
+app.delete("/workshops/:workshopId", async (req, res) => {
+  try {
+    const { workshopId } = req.params;
+    await workshopModal.findOne
+      .findOneAndDelete({
+        workshopId,
+      })
+      .exec();
+    res.json({ code: "200", message: "Workshop deleted successfully!" });
   } catch (error) {
     res.status(400).json({ error });
     console.log({ error });
