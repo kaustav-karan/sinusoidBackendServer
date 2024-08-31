@@ -146,7 +146,7 @@ app.put("/events/:eventId", async (req, res) => {
 
     // Create an update object excluding eventId
     const updateData = {
-0      _id,
+      _id,
       published,
       status,
       eventName,
