@@ -146,7 +146,7 @@ app.put("/events/:eventId", async (req, res) => {
 
     // Create an update object excluding eventId
     const updateData = {
-      _id,
+      _id ,
       published,
       status,
       eventName,
@@ -194,6 +194,7 @@ app.get("/events/:eventId", async (req, res) => {
 app.post("/events", async (req, res) => {
   try {
     const {
+      _id,
       published,
       status,
       eventId,
@@ -209,6 +210,7 @@ app.post("/events", async (req, res) => {
       eventStructure,
     } = req.body;
     const newEvent = new eventModal({
+      _id,
       published,
       status,
       eventId,
@@ -263,6 +265,7 @@ app.put("/workshops/:workshopId", async (req, res) => {
   try {
     const { workshopId } = req.params;
     const {
+      _id,
       published,
       status,
       workshopName,
@@ -275,6 +278,7 @@ app.put("/workshops/:workshopId", async (req, res) => {
     const updatedWorkshop = await workshopModal.findOneAndUpdate(
       { workshopId },
       {
+        _id,
         published,
         status,
         workshopName,
@@ -313,6 +317,7 @@ app.get("/workshops/:workshopId", async (req, res) => {
 app.post("/workshops", async (req, res) => {
   try {
     const {
+      _id,
       published,
       status,
       workshopId,
@@ -324,6 +329,7 @@ app.post("/workshops", async (req, res) => {
       guidelines,
     } = req.body;
     const newWorkshop = new workshopModal({
+      _id,
       published,
       status,
       workshopId,

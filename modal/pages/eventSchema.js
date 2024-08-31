@@ -1,10 +1,11 @@
 const mongoose = require("mongoose");
+const uuid = require("uuid4");
 
 const eventSchema = mongoose.Schema({
-  _id: { type: String, required: true },
+  _id: { type: String, required: true, default: uuid() },
   published: { type: Boolean, default: false },
   status: { type: String, default: "draft" },
-  eventId: { type: String },
+  eventId: { type: String, unique: true, required: true },
   eventName: { type: String, required: true },
   eventTagline: { type: String, required: true },
   shortDesc: { type: String, required: true },
