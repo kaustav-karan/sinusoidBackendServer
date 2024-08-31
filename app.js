@@ -146,7 +146,7 @@ app.put("/events/:eventId", async (req, res) => {
 
     // Create an update object excluding eventId
     const updateData = {
-      _id ,
+0      _id,
       published,
       status,
       eventName,
@@ -260,7 +260,6 @@ app.get("/workshops", async (req, res) => {
   }
 });
 
-// PUT siNUsoid Modify Workshop by workshopId
 app.put("/workshops/:workshopId", async (req, res) => {
   try {
     const { workshopId } = req.params;
@@ -275,19 +274,22 @@ app.put("/workshops/:workshopId", async (req, res) => {
       collaboration,
       guidelines,
     } = req.body;
+
+    const updateData = {
+      _id,
+      published,
+      status,
+      workshopName,
+      workshopTagline,
+      description,
+      schedule,
+      collaboration,
+      guidelines,
+    };
+
     const updatedWorkshop = await workshopModal.findOneAndUpdate(
       { workshopId },
-      {
-        _id,
-        published,
-        status,
-        workshopName,
-        workshopTagline,
-        description,
-        schedule,
-        collaboration,
-        guidelines,
-      },
+      updateData,
       { new: true }
     );
     res.json(updatedWorkshop);
@@ -296,6 +298,43 @@ app.put("/workshops/:workshopId", async (req, res) => {
     console.log({ error });
   }
 });
+
+// PUT siNUsoid Modify Workshop by workshopId
+// app.put("/workshops/:workshopId", async (req, res) => {
+//   try {
+//     const { workshopId } = req.params;
+//     const {
+//       _id,
+//       published,
+//       status,
+//       workshopName,
+//       workshopTagline,
+//       description,
+//       schedule,
+//       collaboration,
+//       guidelines,
+//     } = req.body;
+//     const updatedWorkshop = await workshopModal.findOneAndUpdate(
+//       { workshopId },
+//       {
+//         _id,
+//         published,
+//         status,
+//         workshopName,
+//         workshopTagline,
+//         description,
+//         schedule,
+//         collaboration,
+//         guidelines,
+//       },
+//       { new: true }
+//     );
+//     res.json(updatedWorkshop);
+//   } catch (error) {
+//     res.status(400).json({ error });
+//     console.log({ error });
+//   }
+// });
 
 // GET siNUsoid Workshop by workshopId
 app.get("/workshops/:workshopId", async (req, res) => {
