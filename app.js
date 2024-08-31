@@ -129,7 +129,6 @@ app.put("/events/:eventId", async (req, res) => {
   try {
     const { eventId } = req.params;
     const {
-      _id,
       published,
       status,
       eventName,
@@ -143,25 +142,29 @@ app.put("/events/:eventId", async (req, res) => {
       prizes,
       eventStructure,
     } = req.body;
+
+    // Create an update object excluding eventId
+    const updateData = {
+      published,
+      status,
+      eventName,
+      eventTagline,
+      shortDesc,
+      longDesc,
+      schedule,
+      note,
+      overview,
+      rules,
+      prizes,
+      eventStructure,
+    };
+
     const updatedEvent = await eventModal.findOneAndUpdate(
       { eventId },
-      {
-        _id,
-        published,
-        status,
-        eventName,
-        eventTagline,
-        shortDesc,
-        longDesc,
-        schedule,
-        note,
-        overview,
-        rules,
-        prizes,
-        eventStructure,
-      },
+      updateData,
       { new: true }
     );
+
     res.json(updatedEvent);
   } catch (error) {
     res.status(400).json({ error });
@@ -189,7 +192,6 @@ app.get("/events/:eventId", async (req, res) => {
 app.post("/events", async (req, res) => {
   try {
     const {
-      _id,
       published,
       status,
       eventId,
@@ -205,7 +207,6 @@ app.post("/events", async (req, res) => {
       eventStructure,
     } = req.body;
     const newEvent = new eventModal({
-      _id,
       published,
       status,
       eventId,
@@ -260,7 +261,6 @@ app.put("/workshops/:workshopId", async (req, res) => {
   try {
     const { workshopId } = req.params;
     const {
-      _id,
       published,
       status,
       workshopName,
@@ -273,7 +273,6 @@ app.put("/workshops/:workshopId", async (req, res) => {
     const updatedWorkshop = await workshopModal.findOneAndUpdate(
       { workshopId },
       {
-        _id,
         published,
         status,
         workshopName,
@@ -312,7 +311,6 @@ app.get("/workshops/:workshopId", async (req, res) => {
 app.post("/workshops", async (req, res) => {
   try {
     const {
-      _id,
       published,
       status,
       workshopId,
@@ -321,10 +319,9 @@ app.post("/workshops", async (req, res) => {
       description,
       schedule,
       collaboration,
-      guidelines
+      guidelines,
     } = req.body;
     const newWorkshop = new workshopModal({
-      _id,
       published,
       status,
       workshopId,
@@ -333,7 +330,7 @@ app.post("/workshops", async (req, res) => {
       description,
       schedule,
       collaboration,
-      guidelines
+      guidelines,
     });
     await newWorkshop.save();
     res.status(201).json(newWorkshop);
