@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const eventSchema = mongoose.Schema({
+  _id: { type: String, required: true },
   published: { type: Boolean, default: false },
   status: { type: String, default: "draft" },
   eventId: { type: String },

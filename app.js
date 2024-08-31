@@ -129,6 +129,7 @@ app.put("/events/:eventId", async (req, res) => {
   try {
     const { eventId } = req.params;
     const {
+      _id,
       published,
       status,
       eventName,
@@ -145,6 +146,7 @@ app.put("/events/:eventId", async (req, res) => {
 
     // Create an update object excluding eventId
     const updateData = {
+      _id,
       published,
       status,
       eventName,
