@@ -237,8 +237,7 @@ app.post("/events", async (req, res) => {
 app.delete("/events/:eventId", async (req, res) => {
   try {
     const { eventId } = req.params;
-    await eventModal.findOne
-      .findOneAndDelete({
+    await eventModal.findOneAndDelete({
         eventId,
       })
       .exec();
