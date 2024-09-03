@@ -133,6 +133,7 @@ app.put("/events/:eventId", async (req, res) => {
       published,
       status,
       eventName,
+      eventType,
       eventTagline,
       shortDesc,
       longDesc,
@@ -150,6 +151,7 @@ app.put("/events/:eventId", async (req, res) => {
       published,
       status,
       eventName,
+      eventType,
       eventTagline,
       shortDesc,
       longDesc,
@@ -198,6 +200,7 @@ app.post("/events", async (req, res) => {
       published,
       status,
       eventId,
+      eventType,
       eventName,
       eventTagline,
       shortDesc,
@@ -214,6 +217,7 @@ app.post("/events", async (req, res) => {
       published,
       status,
       eventId,
+      eventType,
       eventName,
       eventTagline,
       shortDesc,
@@ -297,43 +301,6 @@ app.put("/workshops/:workshopId", async (req, res) => {
     console.log({ error });
   }
 });
-
-// PUT siNUsoid Modify Workshop by workshopId
-// app.put("/workshops/:workshopId", async (req, res) => {
-//   try {
-//     const { workshopId } = req.params;
-//     const {
-//       _id,
-//       published,
-//       status,
-//       workshopName,
-//       workshopTagline,
-//       description,
-//       schedule,
-//       collaboration,
-//       guidelines,
-//     } = req.body;
-//     const updatedWorkshop = await workshopModal.findOneAndUpdate(
-//       { workshopId },
-//       {
-//         _id,
-//         published,
-//         status,
-//         workshopName,
-//         workshopTagline,
-//         description,
-//         schedule,
-//         collaboration,
-//         guidelines,
-//       },
-//       { new: true }
-//     );
-//     res.json(updatedWorkshop);
-//   } catch (error) {
-//     res.status(400).json({ error });
-//     console.log({ error });
-//   }
-// });
 
 // GET siNUsoid Workshop by workshopId
 app.get("/workshops/:workshopId", async (req, res) => {
