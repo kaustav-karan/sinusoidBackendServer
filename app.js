@@ -37,6 +37,9 @@ const workshopRoutes = require("./routes/workshopRoutes");
 const hackathonRegistrationRoutes = require("./routes/hackathonRegistrationsRoute");
 
 // siNUsoid Backend Server Public Routes
+app.get("/", (req, res) => {
+  res.send("Server is up and running...");
+});
 app.use("/", volunteerRoutes);
 app.use("/", sponsorRoutes);
 app.use("/", eventRoutes);

@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const uuid = require("uuid4");
 
 const hackathonSchema = mongoose.Schema({
-    _id: { type: String, required: true, default: uuid() },
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     emailId: { type: String, required: true },

@@ -3,7 +3,6 @@ const hackathonModal = require("../modal/pages/hackathonSchema");
 const registerForHackathon = async (req, res) => {
   try {
     const {
-      _id,
       firstName,
       lastName,
       emailId,
@@ -14,7 +13,6 @@ const registerForHackathon = async (req, res) => {
       teamMembers,
     } = req.body;
     const newHackathon = new hackathonModal({
-      _id,
       firstName,
       lastName,
       emailId,
