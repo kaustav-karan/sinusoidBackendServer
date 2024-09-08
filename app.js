@@ -35,6 +35,7 @@ const volunteerRoutes = require("./routes/volunteerRoutes");
 const sponsorRoutes = require("./routes/sponsorRoutes");
 const workshopRoutes = require("./routes/workshopRoutes");
 const hackathonRegistrationRoutes = require("./routes/hackathonRegistrationsRoute");
+const merchandiseRoutes = require("./routes/merchandiseRoutes");
 
 // siNUsoid Backend Server Public Routes
 app.get("/", (req, res) => {
@@ -42,6 +43,7 @@ app.get("/", (req, res) => {
 });
 app.use("/", volunteerRoutes);
 app.use("/", sponsorRoutes);
+app.use("/", merchandiseRoutes);
 app.use("/", eventRoutes);
 app.use("/", workshopRoutes);
 app.use("/", hackathonRegistrationRoutes);
