@@ -26,7 +26,6 @@ const getEventById = async (req, res) => {
 const createEvent = async (req, res) => {
   try {
     const {
-      _id,
       published,
       status,
       eventId,
@@ -43,7 +42,6 @@ const createEvent = async (req, res) => {
       eventStructure,
     } = req.body;
     const newEvent = new eventModal({
-      _id,
       published,
       status,
       eventId,
@@ -71,7 +69,6 @@ const updateEvent = async (req, res) => {
   try {
     const { eventId } = req.params;
     const {
-      _id,
       published,
       status,
       eventName,
@@ -88,7 +85,6 @@ const updateEvent = async (req, res) => {
     } = req.body;
 
     const updateData = {
-      _id,
       published,
       status,
       eventName,

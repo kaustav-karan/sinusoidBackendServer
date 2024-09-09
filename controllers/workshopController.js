@@ -26,7 +26,6 @@ const getWorkshopById = async (req, res) => {
 const createWorkshop = async (req, res) => {
   try {
     const {
-      _id,
       published,
       status,
       workshopId,
@@ -38,7 +37,6 @@ const createWorkshop = async (req, res) => {
       guidelines,
     } = req.body;
     const newWorkshop = new workshopModal({
-      _id,
       published,
       status,
       workshopId,
@@ -62,7 +60,6 @@ const updateWorkshop = async (req, res) => {
   try {
     const { workshopId } = req.params;
     const {
-      _id,
       published,
       status,
       workshopName,
@@ -73,7 +70,6 @@ const updateWorkshop = async (req, res) => {
       guidelines,
     } = req.body;
     const updateData = {
-      _id,
       published,
       status,
       workshopName,
