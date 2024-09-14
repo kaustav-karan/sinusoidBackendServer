@@ -6,7 +6,7 @@ const getAllWorkshops = async (req, res) => {
     res.json(workshops);
   } catch (error) {
     res.status(400).json({ error });
-    console.log({error});
+    console.log({ error });
   }
 };
 
@@ -91,4 +91,21 @@ const updateWorkshop = async (req, res) => {
   }
 };
 
-module.exports = { getAllWorkshops };
+const deleteWorkshop = async (req, res) => {
+  try {
+    const { workshopId } = req.params;
+    await workshopModal.findOneAndDelete({ workshopId });
+    res.json({ code: "200", message: "Workshop deleted successfully!" });
+  } catch (error) {
+    res.status(400).json({ error });
+    console.log({ error });
+  }
+};
+
+module.exports = {
+  getAllWorkshops,
+  getWorkshopById,
+  createWorkshop,
+  updateWorkshop,
+  deleteWorkshop,
+};

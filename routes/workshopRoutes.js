@@ -1,8 +1,21 @@
 const express = require("express");
 const router = express.Router();
-const { getAllWorkshops } = require("../controllers/workshopController");
+const {
+  getAllWorkshops,
+  getWorkshopById,
+  createWorkshop,
+  updateWorkshop,
+  deleteWorkshop,
+} = require("../controllers/workshopController");
 
 router.get("/workshops", getAllWorkshops);
-// Other workshop routes here
+
+router.get("/workshops/:workshopId", getWorkshopById);
+
+router.post("/workshops", createWorkshop);
+
+router.put("/workshops/:workshopId", updateWorkshop);
+
+router.delete("/workshops/:workshopId", deleteWorkshop);
 
 module.exports = router;
