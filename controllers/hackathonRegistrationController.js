@@ -30,4 +30,14 @@ const registerForHackathon = async (req, res) => {
   }
 };
 
-module.exports = { registerForHackathon };
+const getAllRegistrations = async (req, res) => {
+  try {
+    const registrations = await hackathonModal.find();
+    res.status(200).json(registrations);
+  } catch (error) {
+    res.status(404).json({ error });
+    console.log({ error });
+  }
+};
+
+module.exports = { registerForHackathon, getAllRegistrations };

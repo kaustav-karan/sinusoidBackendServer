@@ -48,6 +48,7 @@ app.use("/", eventRoutes);
 app.use("/", workshopRoutes);
 app.use("/", hackathonRegistrationRoutes);
 
+
 // GET siNUsoid Logo
 app.get("/sinulogo", (req, res) => {
   res.sendFile(__dirname + "/public/sinuLogo.png");
