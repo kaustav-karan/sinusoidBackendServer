@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const uuid = require("uuid4");
 
 const eventSchema = mongoose.Schema({
   published: { type: Boolean, default: false },
@@ -18,15 +17,32 @@ const eventSchema = mongoose.Schema({
     submissionStart: { type: String, required: false },
     submissionEnd: { type: String, required: false },
   },
+  imageAsset: {
+    listingBanner: imgModal,
+    squareBanner: imgModal,
+    eventBannerComponent: imgModal,
+    addtionalAssets: [imgModal],
+  },
+  collaboratorDetails: {
+    enabled: { type: Boolean, required: false },
+    collaboratorBanner: imgModal,
+    collaboratorLogo: imgModal,
+    collaboratorName: { type: String, required: false },
+    collaboratorLink: { type: String, required: false },
+    collaboratorDetails: { type: String, required: false },
+  },
   note: { type: String, required: false },
   overview: { type: String, required: false, default: "No overview available" },
-  eventStructure: [String
-  ],
-  rules: [String
-  ],
-  prizes: [String
-  ],
+  eventStructure: [String],
+  rules: [String],
+  prizes: [String],
 });
+
+const imgModal = {
+  imgUrl: { type: String, required: false },
+  imgAlt: { type: String, required: false },
+  imgTitle: { type: String, required: false },
+};
 
 const eventModal = mongoose.model("events", eventSchema);
 module.exports = eventModal;
