@@ -1,5 +1,4 @@
 const { default: mongoose } = require("mongoose");
-const uuid = require("uuid4");
 
 const workshopSchema = mongoose.Schema({
   published: { type: Boolean, default: false },
