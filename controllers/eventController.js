@@ -40,6 +40,8 @@ const createEvent = async (req, res) => {
       rules,
       prizes,
       eventStructure,
+      imageAsset,
+      collaboratorDetails,
     } = req.body;
     const newEvent = new eventModal({
       published,
@@ -56,6 +58,8 @@ const createEvent = async (req, res) => {
       rules,
       prizes,
       eventStructure,
+      imageAsset,
+      collaboratorDetails,
     });
     await newEvent.save();
     res.status(201).json(newEvent);
@@ -82,6 +86,8 @@ const updateEvent = async (req, res) => {
       rules,
       prizes,
       eventStructure,
+      imageAsset,
+      collaboratorDetails,
     } = req.body;
 
     const updateData = {
@@ -98,6 +104,8 @@ const updateEvent = async (req, res) => {
       rules,
       prizes,
       eventStructure,
+      imageAsset,
+      collaboratorDetails,
     };
 
     const updatedEvent = await eventModal.findOneAndUpdate(
