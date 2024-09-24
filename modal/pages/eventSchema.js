@@ -1,5 +1,11 @@
 const mongoose = require("mongoose");
 
+const imgModal = {
+  imgUrl: { type: String, required: false },
+  imgAlt: { type: String, required: false },
+  imgTitle: { type: String, required: false },
+};
+
 const eventSchema = mongoose.Schema({
   published: { type: Boolean, default: false },
   status: { type: String, default: "draft" },
@@ -37,12 +43,6 @@ const eventSchema = mongoose.Schema({
   rules: [String],
   prizes: [String],
 });
-
-const imgModal = {
-  imgUrl: { type: String, required: false },
-  imgAlt: { type: String, required: false },
-  imgTitle: { type: String, required: false },
-};
 
 const eventModal = mongoose.model("events", eventSchema);
 module.exports = eventModal;
