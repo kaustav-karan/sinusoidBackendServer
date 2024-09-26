@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
-
 router.post("/q1001", (req, res) => {
-  const { answer } = req.body.userInput;
+  const answer = req.body.userInput;
+  // console.log({answer})
   if (answer === "sandwich") {
     res.json({ msg: "251c2c33-2a41-4b44-a90d-8127efc7b9a9" });
   } else {
