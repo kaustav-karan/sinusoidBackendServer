@@ -10,7 +10,7 @@ const app = express();
 // CORS options
 const corsOptions = {
   origin: [
-    "http://localhost:3000",
+    /^http:\/\/localhost:\d+$/,
     "https://korpsin.in",
     "https://sinusoid.in",
     "https://cms.sinusoid.in",
