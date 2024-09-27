@@ -11,6 +11,7 @@ const app = express();
 const corsOptions = {
   origin: [
     /^http:\/\/localhost:\d+$/,
+    "https://abstruse.sinusoid.in",
     "https://korpsin.in",
     "https://sinusoid.in",
     "https://cms.sinusoid.in",
