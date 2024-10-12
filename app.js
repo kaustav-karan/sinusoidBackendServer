@@ -26,6 +26,9 @@ app.use(cors(corsOptions));
 // Bodyparser Middleware
 app.use(bodyParser.json());
 
+// 1 indicates one layer of proxy (e.g., behind NGINX)
+app.set('trust proxy', 1); 
+
 // Rate Limiting
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -51,6 +54,7 @@ const workshopRoutes = require("./routes/workshopRoutes");
 const hackathonRegistrationRoutes = require("./routes/hackathonRegistrationsRoute");
 const merchandiseRoutes = require("./routes/merchandiseRoutes");
 const imageRoutes = require("./routes/imagesRoutes");
+const contactUsRoutes = require("./routes/contactUsRoutes");
 
 // siNUsoid Backend Server Public Routes
 app.get("/", (req, res) => {
@@ -63,6 +67,7 @@ app.use("/", eventRoutes);
 app.use("/", workshopRoutes);
 app.use("/", hackathonRegistrationRoutes);
 app.use("/", imageRoutes);
+app.use("/", contactUsRoutes)
 
 // GET siNUsoid Logo
 app.get("/sinulogo", (req, res) => {
