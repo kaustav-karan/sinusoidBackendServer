@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const { connectDb } = require("./config/connectDb");
 require("dotenv").config();
 const cors = require("cors");
+const rateLimit = require("express-rate-limit");
 
 // Initialize express
 const app = express();
@@ -10,7 +11,7 @@ const app = express();
 // CORS options
 const corsOptions = {
   origin: [
-    /^http:\/\/localhost:\d+$/,
+    "http://localhost:3000",
     "https://abstruse.sinusoid.in",
     "https://korpsin.in",
     "https://sinusoid.in",
@@ -25,6 +26,18 @@ app.use(cors(corsOptions));
 // Bodyparser Middleware
 app.use(bodyParser.json());
 
+// Rate Limiting
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+  message: "Too many requests from this IP, please try again after 15 minutes.",
+  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+});
+
+// Apply rate limiting to all routes
+app.use(limiter);
+
 // Connect to MongoDB
 connectDb({
   mongoUri: process.env.MONGODB_URI,
@@ -38,7 +51,6 @@ const workshopRoutes = require("./routes/workshopRoutes");
 const hackathonRegistrationRoutes = require("./routes/hackathonRegistrationsRoute");
 const merchandiseRoutes = require("./routes/merchandiseRoutes");
 const imageRoutes = require("./routes/imagesRoutes");
-const abstruseRoutes = require("./routes/abstruseRoutes");
 
 // siNUsoid Backend Server Public Routes
 app.get("/", (req, res) => {
@@ -51,7 +63,6 @@ app.use("/", eventRoutes);
 app.use("/", workshopRoutes);
 app.use("/", hackathonRegistrationRoutes);
 app.use("/", imageRoutes);
-app.use("/", abstruseRoutes);
 
 // GET siNUsoid Logo
 app.get("/sinulogo", (req, res) => {

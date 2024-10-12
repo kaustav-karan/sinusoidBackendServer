@@ -12,6 +12,7 @@ const eventSchema = mongoose.Schema({
   eventId: { type: String, unique: true, required: true },
   eventName: { type: String, required: true },
   eventType: { type: String, required: true },
+  eventParticipants: { type: String, required: true },
   eventTagline: { type: String, required: true },
   shortDesc: { type: String, required: true },
   longDesc: { type: String, required: true },
