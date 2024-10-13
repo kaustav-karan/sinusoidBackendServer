@@ -27,12 +27,12 @@ app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
 // 1 indicates one layer of proxy (e.g., behind NGINX)
-app.set('trust proxy', 1); 
+app.set("trust proxy", 1);
 
 // Rate Limiting
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
+  windowMs: 10 * 60 * 1000, // 10 minutes
+  max: 400, // limit each IP to 100 requests per windowMs
   message: "Too many requests from this IP, please try again after 15 minutes.",
   standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
@@ -55,6 +55,7 @@ const hackathonRegistrationRoutes = require("./routes/hackathonRegistrationsRout
 const merchandiseRoutes = require("./routes/merchandiseRoutes");
 const imageRoutes = require("./routes/imagesRoutes");
 const contactUsRoutes = require("./routes/contactUsRoutes");
+const eventRegistrationRoutes = require("./routes/eventRegistrationRoutes");
 
 // siNUsoid Backend Server Public Routes
 app.get("/", (req, res) => {
@@ -67,7 +68,8 @@ app.use("/", eventRoutes);
 app.use("/", workshopRoutes);
 app.use("/", hackathonRegistrationRoutes);
 app.use("/", imageRoutes);
-app.use("/", contactUsRoutes)
+app.use("/", contactUsRoutes);
+app.use("/", eventRegistrationRoutes);
 
 // GET siNUsoid Logo
 app.get("/sinulogo", (req, res) => {
