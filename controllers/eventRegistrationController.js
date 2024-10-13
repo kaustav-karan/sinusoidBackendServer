@@ -37,6 +37,7 @@ const createEventRegistration = async (req, res) => {
       email,
       phone,
       universityName,
+      teamMembers,
       isNiitStudent,
       teamDetails,
     } = req.body;
@@ -50,6 +51,7 @@ const createEventRegistration = async (req, res) => {
       email,
       phone,
       universityName,
+      teamMembers,
       isNiitStudent,
       teamDetails,
     });

@@ -37,6 +37,7 @@ const eventRegistrationSchema = mongoose.Schema({
     phone: { type: String, required: true },
     universityName: { type: String, required: true },
     isNiitStudent: { type: Boolean, required: true },
+    teamMembers: { type: Number, required: true },
     teamDetails: [{
         teamMemberName: { 
             type: String, 
