@@ -12,6 +12,8 @@ const eventSchema = mongoose.Schema({
   eventId: { type: String, unique: true, required: true },
   eventName: { type: String, required: true },
   eventType: { type: String, required: true },
+  eventMode: { type: String, required: true },
+  eventRedirectUrl: { type: String, required: false },
   eventParticipants: { type: String, required: true },
   eventTagline: { type: String, required: true },
   shortDesc: { type: String, required: true },
