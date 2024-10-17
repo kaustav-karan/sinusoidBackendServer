@@ -1,8 +1,12 @@
 const path = require("path");
 const fs = require("fs");
+const { Storage } = require('@google-cloud/storage');
+const storage = new Storage();
+const bucket = storage.bucket("sinusoidcms-2024.appspot.com");
+const crypto = require("crypto");
 
 // Controller to handle image upload
-const uploadImage = (req, res) => {
+const uploadImage = async (req, res) => {
   // Check if a file is uploaded
   if (!req.file) {
     return res.status(400).send({
@@ -11,29 +15,45 @@ const uploadImage = (req, res) => {
     });
   }
 
-  // Check for upload errors (including file size limits)
   try {
-    res.send({
-      status: "success",
-      statusCode: 200,
-      fileName: req.file.filename,
-      filePath: `/uploads/${req.file.filename}`,
-      message: "Image uploaded successfully!",
-    });
-  } catch (error) {
-    if (error instanceof multer.MulterError) {
-      // A Multer error occurred during upload
-      if (error.code === "LIMIT_FILE_SIZE") {
-        return res.status(400).send({
-          status: "error",
-          message:
-            "File size too large! Please upload a file smaller than 5MB.",
-        });
-      }
-    }
+    // Generate a unique filename
+    const uniqueSuffix = crypto.randomBytes(16).toString("hex");
+    const ext = path.extname(req.file.originalname);
+    const fileName = `${uniqueSuffix}${ext}`;
 
-    // Handle other errors
-    return res.status(400).send({
+    // Upload file to Firebase Storage
+    const blob = bucket.file(fileName);
+    const blobStream = blob.createWriteStream({
+      metadata: {
+        contentType: req.file.mimetype,
+      },
+    });
+
+    blobStream.on("error", (err) => {
+      console.log(err);
+      return res.status(500).send({
+        status: "error",
+        message: "Error uploading image to Firebase",
+      });
+    });
+
+    blobStream.on("finish", async () => {
+      // Get the public URL of the uploaded image
+      const publicUrl = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
+
+      res.send({
+        status: "success",
+        statusCode: 200,
+        fileName: blob.name,
+        filePath: publicUrl,
+        message: "Image uploaded successfully!",
+      });
+    });
+
+    blobStream.end(req.file.buffer); // Upload the file buffer
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({
       status: "error",
       message: error.message || "Error uploading image",
     });
@@ -41,36 +61,32 @@ const uploadImage = (req, res) => {
 };
 
 // Controller to fetch all uploaded images
-const getAllImages = (req, res) => {
+const getAllImages = async (req, res) => {
   try {
-    const uploadPath = path.join(__dirname, "../uploads");
-    fs.readdir(uploadPath, (err, files) => {
-      if (err) {
-        return res.status(500).send({
-          status: "error",
-          message: "Error reading files",
-        });
-      }
-      res.send({
-        status: "success",
-        statusCode: 200,
-        files,
-      });
+    const [files] = await bucket.getFiles();
+    const fileUrls = files.map((file) => {
+      return `https://storage.googleapis.com/${bucket.name}/${file.name}`;
+    });
+
+    res.send({
+      status: "success",
+      statusCode: 200,
+      files: fileUrls,
     });
   } catch (error) {
-    res.status(400).send({
+    res.status(500).send({
       status: "error",
-      message: "Error getting images",
+      message: "Error fetching images",
     });
   }
 };
 
 // Controller to fetch a specific image by filename
-const getImage = (req, res) => {
+const getImage = async (req, res) => {
   try {
     const filename = req.params.filename;
-    const uploadPath = path.join(__dirname, "../uploads", filename);
-    res.sendFile(uploadPath);
+    const publicUrl = `https://storage.googleapis.com/${bucket.name}/${filename}`;
+    res.redirect(publicUrl); // Redirect to the public URL of the image
   } catch (error) {
     res.status(400).send({
       status: "error",

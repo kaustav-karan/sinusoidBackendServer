@@ -1,26 +1,8 @@
 const multer = require("multer");
-const crypto = require("crypto");
 const path = require("path");
-const fs = require("fs");
 
-// Multer storage configuration with random unique filenames
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    const uploadPath = "uploads/";
-    // Ensure that the upload folder exists
-    if (!fs.existsSync(uploadPath)) {
-      fs.mkdirSync(uploadPath);
-    }
-    cb(null, uploadPath);
-  },
-  filename: (req, file, cb) => {
-    const uniqueSuffix = crypto.randomBytes(16).toString("hex");
-    const ext = path.extname(file.originalname);
-    cb(null, `${uniqueSuffix}${ext}`);
-  },
-});
+const storage = multer.memoryStorage(); // Store the file in memory as a buffer
 
-// Multer configuration for image uploads only
 const upload = multer({
   storage: storage,
   limits: {
