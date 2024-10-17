@@ -74,6 +74,7 @@ const getAllImages = async (req, res) => {
       files: fileUrls,
     });
   } catch (error) {
+    console.log(error);
     res.status(500).send({
       status: "error",
       message: "Error fetching images",
