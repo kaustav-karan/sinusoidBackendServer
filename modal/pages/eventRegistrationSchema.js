@@ -7,6 +7,8 @@ const eventRegistrationSchema = mongoose.Schema({
   eventParticipants: { type: String, required: true },
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
+  maxTeamMember: { type: Number, required: true },
+  minTeamMember: { type: Number, required: true },
   email: { type: String, required: true },
   phone: { type: String, required: true },
   universityName: { type: String, required: true },
