@@ -6,7 +6,7 @@ const getAllEvents = async (req, res) => {
     res.json(events);
   } catch (error) {
     res.status(400).json({ error });
-    console.log({error});
+    console.log({ error });
   }
 };
 
@@ -31,6 +31,8 @@ const createEvent = async (req, res) => {
       eventId,
       eventType,
       eventMode,
+      maxTeamMember,
+      minTeamMember,
       eventRedirectUrl,
       eventParticipants,
       eventName,
@@ -52,6 +54,8 @@ const createEvent = async (req, res) => {
       eventId,
       eventType,
       eventMode,
+      maxTeamMember,
+      minTeamMember,
       eventRedirectUrl,
       eventParticipants,
       eventName,

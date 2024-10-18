@@ -13,6 +13,8 @@ const eventSchema = mongoose.Schema({
   eventName: { type: String, required: true },
   eventType: { type: String, required: true },
   eventMode: { type: String, required: true },
+  maxTeamMember: { type: Number, required: true },
+  minTeamMember: { type: Number, required: true },
   eventRedirectUrl: { type: String, required: false },
   eventParticipants: { type: String, required: true },
   eventTagline: { type: String, required: true },
