@@ -7,7 +7,7 @@ const OAuth2Client = new OAuth2(process.env.clientId, process.env.clientSecret);
 
 OAuth2Client.setCredentials({ refresh_token: process.env.refreshToken });
 
-export function sendMail(name, recipient, htmlMsg, textMsg) {
+function sendMail(name, subject, recipient, htmlMsg, textMsg) {
   const accessToken = OAuth2Client.getAccessToken();
 
   const transport = nodemailer.createTransport({
@@ -21,18 +21,19 @@ export function sendMail(name, recipient, htmlMsg, textMsg) {
       accessToken: accessToken,
     },
   });
+  
 
   const mailOptions = htmlMsg
     ? {
         from: process.env.EMAIL,
         to: recipient,
-        subject: "Test Email",
+        subject: subject,
         html: htmlMsg,
       }
     : {
         from: process.env.EMAIL,
         to: recipient,
-        subject: "Test Email",
+        subject: subject``,
         text: textMsg,
       };
 
@@ -40,8 +41,10 @@ export function sendMail(name, recipient, htmlMsg, textMsg) {
     if (error) {
       console.log(error);
     } else {
-      console.log(response);
+      // console.log(response);
     }
     transport.close();
   });
 }
+
+module.exports = {sendMail};

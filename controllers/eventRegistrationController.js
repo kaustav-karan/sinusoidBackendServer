@@ -1,5 +1,9 @@
+const path = require("path");
 const eventRegistrationModal = require("../modal/pages/eventRegistrationSchema");
 const { v4: uuidv4 } = require("uuid");
+const { sendMail } = require("../config/connectMail");
+const fs = require("fs");
+const ejs = require("ejs");
 
 const getAllEventRegistrations = async (req, res) => {
   try {
@@ -56,6 +60,29 @@ const createEventRegistration = async (req, res) => {
       teamDetails,
     });
     await newEventRegistration.save();
+
+    // Send email notification
+    const htmlFilePath = path.join(
+      __dirname,
+      "../htmlModal/eventRegistration.ejs"
+    );
+    fs.readFile(htmlFilePath, "utf8", (err, template) => {
+      if (err) {
+        console.log("Error reading file", err);
+        return;
+      }
+
+      data = ejs.render(template, {name: firstName, eventName: eventId, eventRegistrationId: registrationId});
+
+      sendMail(
+        firstName, // Directly pass the firstName variable
+        "Event Registration", // Subject
+        email, // Recipient
+        data, // HTML message
+        "You have successfully registered for the event" // Text message
+      );
+    });
+
     res.status(201).json(newEventRegistration);
   } catch (error) {
     res.status(400).json({ error });
