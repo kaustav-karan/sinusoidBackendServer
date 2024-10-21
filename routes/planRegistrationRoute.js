@@ -1,17 +1,18 @@
 const express = require("express");
 const router = express.Router();
 const {
-  registerForPlan,
-  getAllRegistrations,
-  getAllRegistrationsEmails,
+  createPlanRegistration,
+  getAllPlanRegistrations,
+  getPlanByRegistrationId,
+  updatePlanRegistration,
   deletePlanRegistration,
 } = require("../controllers/planRegistrationController");
 
-router.post("/plan", registerForPlan);
+router.post("/plan", createPlanRegistration);
 
-router.get("/plan", getAllRegistrations);
+router.get("/plan", getAllPlanRegistrations);
 
-router.get("/planRegistration", getAllRegistrationsEmails);
+router.get("/planRegistration", getPlanByRegistrationId);
 
 router.delete("/plan/:registrationId", deletePlanRegistration);
 

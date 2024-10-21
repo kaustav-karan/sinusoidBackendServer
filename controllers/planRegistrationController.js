@@ -1,3 +1,6 @@
+const generateRandomID = require("../customFunctions/customIdGenerator");
+const planRegistrationModal = require("../modal/pages/planRegistrationSchema");
+
 const getAllPlanRegistrations = async (req, res) => {
   try {
     const planRegistrations = await planRegistrationModal.find();
