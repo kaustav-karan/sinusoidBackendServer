@@ -9,6 +9,7 @@ const planRegistrationSchema = mongoose.Schema({
   email: { type: String, required: true },
   phone: { type: String, required: true },
   universityName: { type: String, required: true },
+  registrationTime: { type: Date, default: Date.now },
   photoIdUrl: { type: String, required: true },
 });
 

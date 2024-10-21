@@ -12,6 +12,7 @@ const eventRegistrationSchema = mongoose.Schema({
   universityName: { type: String, required: true },
   isNiitStudent: { type: Boolean, required: true },
   teamMembers: { type: Number, required: true },
+  registrationTime: { type: Date, default: Date.now },
   teamDetails: [
     {
       teamMemberName: {
