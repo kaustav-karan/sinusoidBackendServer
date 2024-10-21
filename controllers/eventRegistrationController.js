@@ -4,6 +4,7 @@ const { v4: uuidv4 } = require("uuid");
 const { sendMail } = require("../config/connectMail");
 const fs = require("fs");
 const ejs = require("ejs");
+const generateRandomID = require("../customFunctions/customIdGenerator");
 
 const getAllEventRegistrations = async (req, res) => {
   try {
@@ -45,7 +46,7 @@ const createEventRegistration = async (req, res) => {
       isNiitStudent,
       teamDetails,
     } = req.body;
-    const registrationId = uuidv4(); // Generate a unique registrationId
+    const registrationId = `${generateRandomID()}ER`; // Generate a unique registrationId
     const newEventRegistration = new eventRegistrationModal({
       registrationId,
       eventId,

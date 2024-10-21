@@ -1,4 +1,3 @@
-const { language } = require("googleapis/build/src/apis/language");
 const mongoose = require("mongoose");
 
 const eventRegistrationSchema = mongoose.Schema({
