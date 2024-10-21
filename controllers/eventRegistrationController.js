@@ -36,6 +36,7 @@ const createEventRegistration = async (req, res) => {
   try {
     const {
       eventId,
+      eventName,
       eventParticipants,
       firstName,
       lastName,
@@ -50,6 +51,7 @@ const createEventRegistration = async (req, res) => {
     const newEventRegistration = new eventRegistrationModal({
       registrationId,
       eventId,
+      eventName,
       eventParticipants,
       firstName,
       lastName,
@@ -73,7 +75,7 @@ const createEventRegistration = async (req, res) => {
         return;
       }
 
-      data = ejs.render(template, {name: firstName, eventName: eventId, eventRegistrationId: registrationId});
+      data = ejs.render(template, {name: firstName, eventName: eventName, eventRegistrationId: registrationId});
 
       sendMail(
         firstName, // Directly pass the firstName variable

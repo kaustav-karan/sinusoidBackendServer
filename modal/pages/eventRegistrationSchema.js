@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const eventRegistrationSchema = mongoose.Schema({
   registrationId: { type: String, required: true },
   eventId: { type: String, required: true },
+  eventName: { type: String, required: true },
   eventParticipants: { type: String, required: true },
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },

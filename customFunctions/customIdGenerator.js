@@ -8,5 +8,3 @@ function generateRandomID(length = 6) {
 }
 
 module.exports = generateRandomID;
-
-console.log(generateRandomID());
