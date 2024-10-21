@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 
 const planRegistrationSchema = mongoose.Schema({
   registrationId: { type: String, required: true },
-  eventId: { type: String, required: true },
-  eventParticipants: { type: String, required: true },
+  planId: { type: String, required: true },
+  planName: { type: String, required: true },
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   email: { type: String, required: true },
