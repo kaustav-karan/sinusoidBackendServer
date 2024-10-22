@@ -1,6 +1,5 @@
 const path = require("path");
 const eventRegistrationModal = require("../modal/pages/eventRegistrationSchema");
-const { v4: uuidv4 } = require("uuid");
 const { sendMail } = require("../config/connectMail");
 const fs = require("fs");
 const ejs = require("ejs");
@@ -79,7 +78,7 @@ const createEventRegistration = async (req, res) => {
 
       sendMail(
         firstName, // Directly pass the firstName variable
-        "Event Registration", // Subject
+        `${eventName} Registration Successful`, // Subject
         email, // Recipient
         data, // HTML message
         "You have successfully registered for the event" // Text message

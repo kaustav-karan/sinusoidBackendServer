@@ -1,5 +1,9 @@
+const { sendMail } = require("../config/connectMail");
 const generateRandomID = require("../customFunctions/customIdGenerator");
 const planRegistrationModal = require("../modal/pages/planRegistrationSchema");
+const fs = require("fs");
+const ejs = require("ejs");
+const path = require("path");
 
 const getAllPlanRegistrations = async (req, res) => {
   try {
@@ -38,6 +42,7 @@ const createPlanRegistration = async (req, res) => {
       phone,
       universityName,
       photoIdUrl,
+      paymentProofUrl,
     } = req.body;
     const registrationId = `${generateRandomID()}OR`; // Generate a unique registrationId
     const newPlanRegistration = new planRegistrationModal({
@@ -50,8 +55,31 @@ const createPlanRegistration = async (req, res) => {
       phone,
       universityName,
       photoIdUrl,
+      paymentProofUrl,
     });
     await newPlanRegistration.save();
+    const htmlFilePath = path.join(
+      __dirname,
+      "../htmlModal/prRegistration.ejs"
+    );
+    fs.readFile(htmlFilePath, "utf8", (err, template) => {
+      if (err) {
+        console.log("Error reading file", err);
+        return;
+      }
+      const data = ejs.render(template, {
+        name: firstName,
+        planName: planName,
+        planRegistrationId: registrationId,
+      });
+      sendMail(
+        firstName,
+        "Trip to siNUsoid Confirmed",
+        email,
+        data,
+        "You have successfully registered for the siNUsoid"
+      );
+    });
     res.status(201).json(newPlanRegistration);
   } catch (error) {
     res.status(409).json({ message: error.message });

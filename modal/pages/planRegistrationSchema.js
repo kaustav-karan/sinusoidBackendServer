@@ -11,6 +11,7 @@ const planRegistrationSchema = mongoose.Schema({
   universityName: { type: String, required: true },
   registrationTime: { type: Date, default: Date.now },
   photoIdUrl: { type: String, required: true },
+  paymentProofUrl: { type: String, required: true },
 });
 
 const planRegistrationModal = mongoose.model(
