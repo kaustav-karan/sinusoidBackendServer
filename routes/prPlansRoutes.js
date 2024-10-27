@@ -10,9 +10,9 @@ const {
   getAllPrPlansByPlanType,
 } = require("../controllers/prPlansController");
 
-router.get("/plans", getAllPrPlans);
+router.get("/prplans", getAllPrPlans);
 
-router.get("/plansbytype", getAllPrPlansByPlanType);
+router.get("/prplansbytype", getAllPrPlansByPlanType);
 
 router.get("/prplans/:referralCode", getPrPlanByReferralCode);
 
