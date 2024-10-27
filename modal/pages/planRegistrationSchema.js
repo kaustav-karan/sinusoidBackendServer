@@ -12,6 +12,7 @@ const planRegistrationSchema = mongoose.Schema({
   registrationTime: { type: Date, default: Date.now },
   photoIdUrl: { type: String, required: true },
   paymentProofUrl: { type: String, required: true },
+  referralCode: { type: String, required: false },
 });
 
 const planRegistrationModal = mongoose.model(

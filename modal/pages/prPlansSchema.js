@@ -10,12 +10,6 @@ const prPlanSubSchema = mongoose.Schema({
   description: [String],
 });
 
-// const prPlansSchema = mongoose.Schema({
-//   silver: [prPlanSubSchema],
-//   gold: [prPlanSubSchema],
-//   platinum: [prPlanSubSchema],
-// });
-
 const prPlanSubModel = mongoose.model("prPlans", prPlanSubSchema);
 
 module.exports = { prPlanSubModel };

@@ -4,6 +4,15 @@ const { prPlanSubModel } = require("../modal/pages/prPlansSchema");
 const getAllPrPlans = async (req, res) => {
   try {
     const prPlans = await prPlanSubModel.find();
+    res.status(200).json(prPlans);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+const getAllPrPlansByPlanType = async (req, res) => {
+  try {
+    const prPlans = await prPlanSubModel.find();
     const customResponse = {
       silver: prPlans.filter((plan) => plan.planType === "silver"),
       gold: prPlans.filter((plan) => plan.planType === "gold"),
@@ -73,6 +82,24 @@ const updatePrPlan = async (req, res) => {
   }
 };
 
+const patchPrPlan = async (req, res) => {
+  try {
+    const { referralCode } = req.params;
+    const { path } = req.body;
+    const updatedPrPlan = await prPlanSubModel.findOneAndUpdate(
+      { referralCode },
+      {
+        path,
+      },
+      { new: true }
+    );
+    res.json(updatedPrPlan);
+  } catch (error) {
+    res.status(400).json({ error });
+    console.log({ error });
+  }
+};
+
 const deletePrPlan = async (req, res) => {
   try {
     const { referralCode } = req.params;
@@ -88,8 +115,10 @@ const deletePrPlan = async (req, res) => {
 
 module.exports = {
   getAllPrPlans,
+  getAllPrPlansByPlanType,
   getPrPlanByReferralCode,
   createPrPlan,
   updatePrPlan,
+  patchPrPlan,
   deletePrPlan,
 };

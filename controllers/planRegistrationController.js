@@ -43,6 +43,7 @@ const createPlanRegistration = async (req, res) => {
       universityName,
       photoIdUrl,
       paymentProofUrl,
+      referralCode,
     } = req.body;
     const registrationId = `${generateRandomID()}OR`; // Generate a unique registrationId
     const newPlanRegistration = new planRegistrationModal({
@@ -56,6 +57,7 @@ const createPlanRegistration = async (req, res) => {
       universityName,
       photoIdUrl,
       paymentProofUrl,
+      referralCode,
     });
     await newPlanRegistration.save();
     const htmlFilePath = path.join(
