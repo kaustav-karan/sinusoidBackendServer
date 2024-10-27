@@ -32,7 +32,7 @@ app.set("trust proxy", 1);
 // Rate Limiting
 const limiter = rateLimit({
   windowMs: 10 * 60 * 1000, // 10 minutes
-  max: 400, // limit each IP to 100 requests per windowMs
+  max: 400, // limit each IP to 400 requests per windowMs
   message: "Too many requests from this IP, please try again after 15 minutes.",
   standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
@@ -57,6 +57,8 @@ const imageRoutes = require("./routes/imagesRoutes");
 const contactUsRoutes = require("./routes/contactUsRoutes");
 const eventRegistrationRoutes = require("./routes/eventRegistrationRoutes");
 const planRegistrationRoutes = require("./routes/planRegistrationRoute");
+const marketingComponentRoutes = require("./routes/marketingComponentRoutes");
+const prPlansRoutes = require("./routes/prPlansRoutes");
 
 // siNUsoid Backend Server Public Routes
 app.get("/", (req, res) => {
@@ -72,6 +74,8 @@ app.use("/", imageRoutes);
 app.use("/", contactUsRoutes);
 app.use("/", eventRegistrationRoutes);
 app.use("/", planRegistrationRoutes);
+app.use("/", marketingComponentRoutes);
+app.use("/", prPlansRoutes);
 
 // GET siNUsoid Logo
 app.get("/sinulogo", (req, res) => {
