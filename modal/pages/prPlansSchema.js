@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
 
 const prPlanSubSchema = mongoose.Schema({
-  varient: { type: String, required: true },
   referralCode: { type: String, required: true },
-  ttl: { type: Number, required: false, default: 9999 },
   name: { type: String, required: true },
-  price: { type: Number, required: true },
   planType: { type: String, required: true },
+  varient: { type: String, required: true },
+  price: { type: Number, required: true },
+  ttl: { type: Number, required: false, default: 9999 },
   description: [String],
 });
 

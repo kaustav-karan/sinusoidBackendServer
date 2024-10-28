@@ -4,6 +4,7 @@ const planRegistrationModal = require("../modal/pages/planRegistrationSchema");
 const fs = require("fs");
 const ejs = require("ejs");
 const path = require("path");
+const { prPlanSubModel } = require("../modal/pages/prPlansSchema");
 
 const getAllPlanRegistrations = async (req, res) => {
   try {
@@ -60,6 +61,20 @@ const createPlanRegistration = async (req, res) => {
       referralCode,
     });
     await newPlanRegistration.save();
+    if (referralCode) {
+      (async () => {
+        try {
+          await prPlanSubModel.findOneAndUpdate(
+            { referralCode },
+            { $inc: { ttl: -1 } },
+            { new: true } // This option returns the modified document
+          );
+          // Handle the updatedPrPlan as needed
+        } catch (error) {
+          console.error(error);
+        }
+      })();
+    }
     const htmlFilePath = path.join(
       __dirname,
       "../htmlModal/prRegistration.ejs"
