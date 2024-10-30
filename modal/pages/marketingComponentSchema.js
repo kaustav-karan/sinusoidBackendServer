@@ -9,7 +9,7 @@ const marketingComponentSchema = {
   title: { type: String, required: false },
   componentId: { type: String, required: true },
   note: { type: String, required: false },
-  ttl: { type: Number, required: false, default: 1500 },
+  ttl: { type: String, required: false },
 };
 
 const marketingComponentModal = mongoose.model(
