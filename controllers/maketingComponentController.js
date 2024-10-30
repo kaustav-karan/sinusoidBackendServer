@@ -1,3 +1,4 @@
+const generateRandomID = require("../customFunctions/customIdGenerator");
 const marketingComponentModal = require("../modal/pages/marketingComponentSchema");
 
 const getAllMarketingComponents = async (req, res) => {
@@ -35,10 +36,10 @@ const createMarketingComponent = async (req, res) => {
       varient,
       content,
       title,
-      componentId,
       note,
       ttl,
     } = req.body;
+    const componentId = `${generateRandomID()}MC`;
     const newMarketingComponent = new marketingComponentModal({
       redirectLink,
       imgSrcLink,
