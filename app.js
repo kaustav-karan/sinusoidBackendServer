@@ -12,6 +12,7 @@ const app = express();
 const corsOptions = {
   origin: [
     "http://localhost:3000",
+    "http://localhost:8081",
     "https://abstruse.sinusoid.in",
     "https://korpsin.in",
     "https://sinusoid.in",
@@ -59,6 +60,7 @@ const eventRegistrationRoutes = require("./routes/eventRegistrationRoutes");
 const planRegistrationRoutes = require("./routes/planRegistrationRoute");
 const marketingComponentRoutes = require("./routes/marketingComponentRoutes");
 const prPlansRoutes = require("./routes/prPlansRoutes");
+const attendeesRoutes = require("./routes/attendeesRoutes");
 
 // siNUsoid Backend Server Public Routes
 app.get("/", (req, res) => {
@@ -76,6 +78,7 @@ app.use("/", eventRegistrationRoutes);
 app.use("/", planRegistrationRoutes);
 app.use("/", marketingComponentRoutes);
 app.use("/", prPlansRoutes);
+app.use("/", attendeesRoutes);
 
 // GET siNUsoid Logo
 app.get("/sinulogo", (req, res) => {
