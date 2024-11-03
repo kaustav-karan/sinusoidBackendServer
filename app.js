@@ -61,6 +61,7 @@ const planRegistrationRoutes = require("./routes/planRegistrationRoute");
 const marketingComponentRoutes = require("./routes/marketingComponentRoutes");
 const prPlansRoutes = require("./routes/prPlansRoutes");
 const attendeesRoutes = require("./routes/attendeesRoutes");
+const eventRegistrationGsheetRoutes = require("./routes/eventRegistrationGsheetRoutes");
 
 // siNUsoid Backend Server Public Routes
 app.get("/", (req, res) => {
@@ -79,6 +80,7 @@ app.use("/", planRegistrationRoutes);
 app.use("/", marketingComponentRoutes);
 app.use("/", prPlansRoutes);
 app.use("/", attendeesRoutes);
+app.use("/", eventRegistrationGsheetRoutes);
 
 // GET siNUsoid Logo
 app.get("/sinulogo", (req, res) => {
