@@ -1,4 +1,5 @@
-const updatePlanRegistrationSheet = require("../customFunctions/planREgistrationUpdateFunction");
+
+const updatePlanRegistrationSheet = require("../customFunctions/PRRegistrationUpdateFunction");
 const planRegistrationModal = require("../modal/pages/planRegistrationSchema");
 
 const planRegistrationGsheet = async (req, res) => {
