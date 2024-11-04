@@ -1,8 +1,8 @@
-const { google } = require("googleapis");
 const getAccessToken = require("../config/gSheetConfig");
+const { google } = require("googleapis");
 require("dotenv").config();
 
-async function updateEventRegistrationSheet(dataArray) {
+async function updatePlanRegistrationSheet(dataArray) {
   try {
     const accessToken = await getAccessToken();
 
@@ -15,22 +15,20 @@ async function updateEventRegistrationSheet(dataArray) {
       auth: oauth2Client, // Use OAuth2 client here
     });
 
-    const spreadsheetId = process.env.EVENT_REGISTRATION_SHEET_ID;
+    const spreadsheetId = process.env.PLAN_REGISTRATION_SHEET_ID;
     const range = "Sheet1!A2:Z"; // Adjust the range as needed
 
     const values = dataArray.map((data) => [
       data.registrationId,
-      data.eventId,
-      data.eventName,
-      data.eventParticipants,
+      data.planId,
+      data.planName,
       data.firstName,
       data.lastName,
       data.email,
       data.phone,
       data.universityName,
-      data.isNiitStudent ? "Yes" : "No",
-      data.teamMembers,
       data.registrationTime.toLocaleString(),
+      data.referralCode,
     ]);
 
     await sheets.spreadsheets.values.update({
@@ -47,4 +45,4 @@ async function updateEventRegistrationSheet(dataArray) {
   }
 }
 
-module.exports = updateEventRegistrationSheet;
+module.exports = updatePlanRegistrationSheet;
