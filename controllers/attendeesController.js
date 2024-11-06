@@ -47,7 +47,6 @@ const createInternalAttendee = async (req, res) => {
     const {
       firstName,
       lastName,
-      contactNumber,
       emailId,
       lastLocation,
       lastScannedAt,
@@ -58,7 +57,6 @@ const createInternalAttendee = async (req, res) => {
       attendeeId,
       firstName,
       lastName,
-      contactNumber,
       emailId,
       lastLocation,
       lastScannedAt,
@@ -77,7 +75,6 @@ const createExternalAttendee = async (req, res) => {
     const {
       firstName,
       lastName,
-      contactNumber,
       emailId,
       lastScannedAt,
       lastScannedBy,
@@ -88,7 +85,6 @@ const createExternalAttendee = async (req, res) => {
       attendeeId,
       firstName,
       lastName,
-      contactNumber,
       emailId,
       lastScannedAt,
       lastScannedBy,
@@ -116,7 +112,6 @@ const updateAttendee = async (req, res) => {
         const {
           firstName,
           lastName,
-          contactNumber,
           emailId,
           lastLocation,
           lastScannedAt,
@@ -127,7 +122,6 @@ const updateAttendee = async (req, res) => {
           {
             firstName,
             lastName,
-            contactNumber,
             emailId,
             lastLocation,
             lastScannedAt,
@@ -146,7 +140,6 @@ const updateAttendee = async (req, res) => {
         const {
           firstName,
           lastName,
-          contactNumber,
           emailId,
           lastScannedAt,
           lastScannedBy,
@@ -157,7 +150,6 @@ const updateAttendee = async (req, res) => {
           {
             firstName,
             lastName,
-            contactNumber,
             emailId,
             lastScannedAt,
             lastScannedBy,
