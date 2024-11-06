@@ -42,6 +42,37 @@ const getAttendeeById = async (req, res) => {
   }
 };
 
+const getAttendeeByIdLocal = async (req) => {
+  try {
+    const { attendeeId } = req.params;
+    const attendeeType = attendeeId.slice(-2);
+    if (attendeeType === "IR") {
+      const internalAttendee = await internalAttendeesModal.findOne({
+        attendeeId,
+      });
+      if (internalAttendee === null) {
+        return { code: "404", message: "Attendee not found" };
+      } else {
+        return internalAttendee;
+      }
+    } else if (attendeeType === "OR") {
+      const externalAttendee = await externalAttendeesModal.findOne({
+        attendeeId,
+      });
+      if (externalAttendee === null) {
+        return { code: "404", message: "Attendee not found" };
+      } else {
+        return externalAttendee;
+      }
+    } else {
+      return { code: "400", message: "Invalid attendeeId" };
+    }
+  } catch (error) {
+    console.log({ error });
+    return { error };
+  }
+};
+
 const createInternalAttendee = async (req, res) => {
   try {
     const {
@@ -248,6 +279,7 @@ const deleteAttendee = async (req, res) => {
 module.exports = {
   getAllAttendees,
   getAttendeeById,
+  getAttendeeByIdLocal,
   createInternalAttendee,
   createExternalAttendee,
   updateAttendee,
