@@ -1,9 +1,6 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const {
-  getAttendeeById,
-  getAttendeeByIdLocal,
-} = require("./attendeesController");
+const { getAttendeeByIdLocal } = require("./attendeesController");
 
 const JWT_SECRET = bcrypt.genSaltSync(10);
 const JWT_EXPIRATION = "2h";
@@ -27,8 +24,8 @@ const getIdCardJWT = async (req, res) => {
       },
       JWT_SECRET,
       { expiresIn: JWT_EXPIRATION }
-      );
-      console.log({token})
+    );
+    console.log({ token });
     return res
       .status(200)
       .json({ code: "200", message: "Token generated successfully", token });
