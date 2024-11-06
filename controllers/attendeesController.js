@@ -112,6 +112,7 @@ const createExternalAttendee = async (req, res) => {
       lastScannedAt,
       lastScannedBy,
       emergencyContact,
+      allottedRoom,
     } = req.body;
     const externalAttendee = new externalAttendeesModal({
       attendeeId,
@@ -121,6 +122,7 @@ const createExternalAttendee = async (req, res) => {
       lastScannedAt,
       lastScannedBy,
       emergencyContact,
+      allottedRoom,
     });
     await externalAttendee.save();
     res.json({ code: "201", message: "Attendee created" });
@@ -148,6 +150,7 @@ const updateAttendee = async (req, res) => {
           lastLocation,
           lastScannedAt,
           lastScannedBy,
+          allottedRoom,
         } = req.body;
         await internalAttendeesModal.updateOne(
           { attendeeId },
@@ -158,6 +161,7 @@ const updateAttendee = async (req, res) => {
             lastLocation,
             lastScannedAt,
             lastScannedBy,
+            allottedRoom,
           }
         );
         res.json({ code: "200", message: "Attendee updated" });

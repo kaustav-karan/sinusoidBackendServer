@@ -18,6 +18,7 @@ const externalAttendeesSchema = mongoose.Schema({
   lastScannedAt: { type: String, required: false },
   lastScannedBy: { type: String, required: false },
   emergencyContact: { type: String, required: false },
+  allottedRoom: { type: String, required: false },
 });
 
 const internalAttendeesModal = mongoose.model(
