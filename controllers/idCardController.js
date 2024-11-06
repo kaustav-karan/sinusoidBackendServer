@@ -40,7 +40,8 @@ const verifyIdCardJWT = async (req, res) => {
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
     console.log({ decoded });
-    const user = await getAttendeeByIdLocal(decoded.attendeeId);
+      const user = await getAttendeeByIdLocal(decoded.attendeeId);
+      const { attendeeId, firstName, lastName } = user;
     console.log({ user });
     if (user.code === "404") {
       return res
@@ -53,7 +54,7 @@ const verifyIdCardJWT = async (req, res) => {
     }
     return res
       .status(200)
-      .json({ code: "200", message: "Token verified successfully", user });
+      .json({ code: "200", message: "Token verified successfully", attendeeId, firstName, lastName });
   } catch (error) {
     console.log({ error });
     return res.status(500).json({ error });
