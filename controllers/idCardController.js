@@ -8,7 +8,6 @@ const JWT_EXPIRATION = "2h";
 const getIdCardJWT = async (req, res) => {
   try {
     const user = await getAttendeeByIdLocal(req.params.attendeeId);
-    console.log(bcrypt.genSaltSync(10));
     const { attendeeId, firstName, lastName } = user;
     console.log({ attendeeId, firstName, lastName });
     if (user.code === "404") {
@@ -40,8 +39,9 @@ const verifyIdCardJWT = async (req, res) => {
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
     console.log({ decoded });
-      const user = await getAttendeeByIdLocal(decoded.attendeeId);
-      const { attendeeId, firstName, lastName } = user;
+    const user = await getAttendeeByIdLocal(decoded.attendeeId);
+    const { firstName, lastName } = user;
+    const name = `${firstName} ${lastName}`;
     console.log({ user });
     if (user.code === "404") {
       return res
@@ -52,9 +52,11 @@ const verifyIdCardJWT = async (req, res) => {
         .status(400)
         .json({ code: "400", message: "Invalid attendeeId" });
     }
-    return res
-      .status(200)
-      .json({ code: "200", message: "Token verified successfully", attendeeId, firstName, lastName });
+    return res.status(200).json({
+      code: "200",
+      message: "Token verified successfully",
+      name,
+    });
   } catch (error) {
     console.log({ error });
     return res.status(500).json({ error });
