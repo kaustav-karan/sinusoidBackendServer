@@ -2,13 +2,13 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const { getAttendeeByIdLocal } = require("./attendeesController");
 
-const JWT_SECRET = bcrypt.genSaltSync(10);
+const JWT_SECRET = process.env.JWT_SECRET_SALT_ID_GENERATION;
 const JWT_EXPIRATION = "2h";
 
 const getIdCardJWT = async (req, res) => {
   try {
     const user = await getAttendeeByIdLocal(req.params.attendeeId);
-    console.log(user);
+    console.log(bcrypt.genSaltSync(10));
     const { attendeeId, firstName, lastName } = user;
     console.log({ attendeeId, firstName, lastName });
     if (user.code === "404") {
