@@ -44,7 +44,8 @@ const getAttendeeById = async (req, res) => {
 
 const getAttendeeByIdLocal = async (req) => {
   try {
-    const { attendeeId } = req.params;
+    const attendeeId = req;
+    console.log({ attendeeId });
     const attendeeType = attendeeId.slice(-2);
     if (attendeeType === "IR") {
       const internalAttendee = await internalAttendeesModal.findOne({
@@ -94,7 +95,7 @@ const createInternalAttendee = async (req, res) => {
       lastScannedBy,
     });
     await internalAttendee.save();
-    res.json({ code: "201", message: "Attendee created" });
+    res.json({ code: "201", message: "Attendee created", attendeeId: attendeeId });
   } catch (error) {
     res.status(400).json({ error });
     console.log({ error });
@@ -104,6 +105,7 @@ const createInternalAttendee = async (req, res) => {
 const createExternalAttendee = async (req, res) => {
   try {
     const {
+      attendeeId,
       firstName,
       lastName,
       emailId,
@@ -111,7 +113,6 @@ const createExternalAttendee = async (req, res) => {
       lastScannedBy,
       emergencyContact,
     } = req.body;
-    const attendeeId = `${generateRandomID()}OR`;
     const externalAttendee = new externalAttendeesModal({
       attendeeId,
       firstName,

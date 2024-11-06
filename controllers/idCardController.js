@@ -5,14 +5,15 @@ const {
   getAttendeeByIdLocal,
 } = require("./attendeesController");
 
-const JWT_SECRET = "secret";
+const JWT_SECRET = bcrypt.genSaltSync(10);
 const JWT_EXPIRATION = "2h";
 
 const getIdCardJWT = async (req, res) => {
-  const { attendeeId } = req.params;
-
   try {
-    const user = await getAttendeeByIdLocal(attendeeId);
+    const user = await getAttendeeByIdLocal(req.params.attendeeId);
+    console.log(user);
+    const { attendeeId, firstName, lastName } = user;
+    console.log({ attendeeId, firstName, lastName });
     if (user.code === "404") {
       return res
         .status(404)
@@ -20,13 +21,14 @@ const getIdCardJWT = async (req, res) => {
     }
     const token = jwt.sign(
       {
-        attendeeId: user.attendeeId,
-        firstName: user.firstName,
-        lastName: user.lastName,
+        attendeeId: attendeeId,
+        firstName: firstName,
+        lastName: lastName,
       },
       JWT_SECRET,
       { expiresIn: JWT_EXPIRATION }
-    );
+      );
+      console.log({token})
     return res
       .status(200)
       .json({ code: "200", message: "Token generated successfully", token });
@@ -40,7 +42,9 @@ const verifyIdCardJWT = async (req, res) => {
   const { token } = req.body;
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
+    console.log({ decoded });
     const user = await getAttendeeByIdLocal(decoded.attendeeId);
+    console.log({ user });
     if (user.code === "404") {
       return res
         .status(404)
