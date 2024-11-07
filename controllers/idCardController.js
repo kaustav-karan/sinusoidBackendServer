@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const { getAttendeeByIdLocal } = require("./attendeesController");
+const logModal = require("../modal/pages/logSchema");
 
 const JWT_SECRET = process.env.JWT_SECRET_SALT_ID_GENERATION;
 const JWT_EXPIRATION = "2h";
