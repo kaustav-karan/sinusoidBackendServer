@@ -38,11 +38,9 @@ const verifyIdCardJWT = async (req, res) => {
   const { token } = req.body;
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
-    console.log({ decoded });
     const user = await getAttendeeByIdLocal(decoded.attendeeId);
     const { firstName, lastName } = user;
     const name = `${firstName} ${lastName}`;
-    console.log({ user });
     if (user.code === "404") {
       return res
         .status(404)

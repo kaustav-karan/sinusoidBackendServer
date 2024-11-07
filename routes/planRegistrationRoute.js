@@ -12,7 +12,7 @@ router.post("/plan", createPlanRegistration);
 
 router.get("/plan", getAllPlanRegistrations);
 
-router.get("/planRegistration", getPlanByRegistrationId);
+router.get("/planRegistration/:registrationId", getPlanByRegistrationId);
 
 router.delete("/plan/:registrationId", deletePlanRegistration);
 

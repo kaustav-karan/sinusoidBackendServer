@@ -2,10 +2,10 @@ const express = require("express");
 const router = express.Router();
 
 const {
-    getIdCardJWT,
-    verifyIdCardJWT,
+  getIdCardJWT,
+  verifyIdCardJWT,
 } = require("../controllers/idCardController");
-    
+
 // Get id card JWT
 router.get("/idCard/:attendeeId", getIdCardJWT);
 
