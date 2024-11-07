@@ -9,6 +9,7 @@ const {
   updateAttendee,
   patchAttendee,
   deleteAttendee,
+  getLogs,
 } = require("../controllers/attendeesController");
 
 // Get all attendees
@@ -31,5 +32,8 @@ router.patch("/attendee/:attendeeId", patchAttendee);
 
 // Delete attendee
 router.delete("/attendee/:attendeeId", deleteAttendee);
+
+// GET all attendees Log
+router.get("/attendeeLog", getLogs);
 
 module.exports = router;

@@ -35,11 +35,11 @@ const getIdCardJWT = async (req, res) => {
 };
 
 const verifyIdCardJWT = async (req, res) => {
-  const { token } = req.body;
+  const { token, venueId } = req.body;
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
     const user = await getAttendeeByIdLocal(decoded.attendeeId);
-    const { firstName, lastName } = user;
+    const { attendeeId, firstName, lastName } = user;
     const name = `${firstName} ${lastName}`;
     if (user.code === "404") {
       return res
@@ -50,6 +50,14 @@ const verifyIdCardJWT = async (req, res) => {
         .status(400)
         .json({ code: "400", message: "Invalid attendeeId" });
     }
+    // Log the user entry
+    const log = new logModal({
+      attendeeId,
+      venueId,
+      name,
+      entryTime: new Date(),
+    });
+    await log.save();
     return res.status(200).json({
       code: "200",
       message: "Token verified successfully",

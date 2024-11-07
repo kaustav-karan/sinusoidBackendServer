@@ -3,6 +3,7 @@ const {
   internalAttendeesModal,
   externalAttendeesModal,
 } = require("../modal/pages/attendeesSchema");
+const logModal = require("../modal/pages/logSchema");
 
 const getAllAttendees = async (req, res) => {
   try {
@@ -281,6 +282,17 @@ const deleteAttendee = async (req, res) => {
   }
 };
 
+// GET all attendees Log
+const getLogs = async (req, res) => {
+  try {
+    const logs = await logModal.find();
+    return res.status(200).json({ code: "200", message: "Logs fetched", logs });
+  } catch (error) {
+    console.log({ error });
+    return res.status(500).json({ error });
+  }
+}
+
 module.exports = {
   getAllAttendees,
   getAttendeeById,
@@ -290,4 +302,5 @@ module.exports = {
   updateAttendee,
   patchAttendee,
   deleteAttendee,
+  getLogs,
 };
