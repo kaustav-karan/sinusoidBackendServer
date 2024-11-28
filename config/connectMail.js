@@ -15,11 +15,11 @@ function sendMail(name, subject, recipient, htmlMsg, textMsg) {
     auth: {
       // type: "OAuth2",
       user: process.env.EMAIL,
-      pass: process.env.GMAIL_PASSWORD,
-      // clientId: process.env.clientId,
-      // clientSecret: process.env.clientSecret,
-      // refreshToken: process.env.refreshToken,
-      // accessToken: accessToken,
+      // pass: process.env.GMAIL_PASSWORD,
+      clientId: process.env.clientId,
+      clientSecret: process.env.clientSecret,
+      refreshToken: process.env.refreshToken,
+      accessToken: accessToken,
     },
   });
   
