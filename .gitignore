@@ -3,3 +3,4 @@
 /credentials.json
 /uploads/*
 /package-lock.json
+.vercel

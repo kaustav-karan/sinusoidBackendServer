@@ -1,17 +1,24 @@
 const mongoose = require("mongoose");
 
+let isConnected = false; // Track connection status
+
 const connectDb = async ({ mongoUri }) => {
-  const mongoDbUri = mongoUri;
-  // console.log(mongoDbUri);
+  if (isConnected) {
+    console.log("Using existing database connection");
+    return;
+  }
+
   try {
-    const dbCon = await mongoose?.connect(mongoDbUri);
-    {
-      dbCon
-        ? console.log("MongoDB Connected")
-        : console.log("MongoDB Not Connected");
-    }
+    const db = await mongoose.connect(mongoUri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    isConnected = db.connections[0].readyState === 1; // 1 means connected
+    console.log("MongoDB Connected");
   } catch (error) {
-    console.error("MongoDB connection failed");
+    console.error("MongoDB Connection Error:", error);
+    throw error;
   }
 };
-exports.connectDb = connectDb;
+
+module.exports = { connectDb };
